@@ -1,5 +1,5 @@
 import sqlite3
-
+from werkzeug.security import generate_password_hash, check_password_hash
 db=sqlite3.connect("users.db")
 
 cursor=db.cursor()
@@ -13,8 +13,10 @@ cursor=db.cursor()
 
 
 def insert_data(login,password):
+    hashed_password=generate_password_hash(password, method='pbkdf2:sha256',salt_length=8)
     with db:
-        cursor.execute("INSERT INTO users VALUES (?,?)",(login,password))
+        cursor.execute("INSERT INTO users VALUES (?,?)",(login,hashed_password))
+
+# insert_data("art",'admin')
 
 
-insert_data('admin','admin')
