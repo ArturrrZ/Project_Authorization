@@ -25,4 +25,27 @@ def get_user_by_login(login):
 
     return user
 
+print("Welcome!")
+is_authorized=False
+while not is_authorized:
+    user=input("Write your login to register/login\n")
+    if len(user.split()) == 1:
+        existed_user=get_user_by_login(user)
+        if existed_user:
+            password=input("I found user with this login. Type your password to Log in\n")
+            if len(password.split()) == 1:
 
+                print(password)
+
+                if check_password_hash(existed_user[1],password):
+                    print("You've logged in!")
+                    is_authorized = True
+                else:
+                    print("Wrong password")
+            else:
+                print("Wrong, password does not have spaces")
+        #register
+
+
+    else:
+        print("Login without spaces")
