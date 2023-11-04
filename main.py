@@ -61,4 +61,6 @@ while not is_authorized:
     else:
         print("Login without spaces")
 
-
+print("----------------")
+print("YOU AUTHORIZED!")
+print("you can do smth here")
