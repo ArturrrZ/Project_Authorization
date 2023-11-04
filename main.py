@@ -19,4 +19,10 @@ def insert_data(login,password):
 
 # insert_data("art",'admin')
 
+def get_user_by_login(login):
+    #return user or None
+    user=cursor.execute("SELECT * FROM users WHERE login = ?",(login,)).fetchone()
+
+    return user
+
 
