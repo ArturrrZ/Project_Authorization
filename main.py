@@ -24,7 +24,7 @@ def get_user_by_login(login):
     user=cursor.execute("SELECT * FROM users WHERE login = ?",(login,)).fetchone()
 
     return user
-
+# def login_or_register():
 print("Welcome!")
 is_authorized=False
 while not is_authorized:
@@ -35,7 +35,7 @@ while not is_authorized:
             password=input("I found user with this login. Type your password to Log in\n")
             if len(password.split()) == 1:
 
-                print(password)
+
 
                 if check_password_hash(existed_user[1],password):
                     print("You've logged in!")
