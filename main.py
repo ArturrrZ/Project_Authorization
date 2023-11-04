@@ -45,7 +45,20 @@ while not is_authorized:
             else:
                 print("Wrong, password does not have spaces")
         #register
+        else:
+            print("There is not any user under this login.")
+            new_password=input("Type your password to register\n")
+            if len(new_password.split()) == 1:
+                hashed_new_password=generate_password_hash(new_password,method="pbkdf2:sha256",salt_length=8)
+                insert_data(user,hashed_new_password)
+                print("You successfully registered!")
+                is_authorized=True
+            else:
+                print("Create password without spaces")
+
 
 
     else:
         print("Login without spaces")
+
+
