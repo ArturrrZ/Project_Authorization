@@ -11,7 +11,7 @@ cursor=db.cursor()
 #         )
 # """)
 
-
+#-----------------------------------------FUNCTIONS------------------------------------------------
 def insert_data(login,password):
     hashed_password=generate_password_hash(password, method='pbkdf2:sha256',salt_length=8)
     with db:
@@ -24,6 +24,21 @@ def get_user_by_login(login):
     user=cursor.execute("SELECT * FROM users WHERE login = ?",(login,)).fetchone()
 
     return user
+
+def delete_user(login,password):
+    with db:
+        if get_user_by_login(login) is not None:
+            if check_password_hash(get_user_by_login(login)[1],password):
+
+                user=cursor.execute("DELETE from users WHERE login = :login", {'login':password})
+                print("you deleted user")
+            else:
+                print("wrong password")
+        else:
+            print("not such user")
+
+#-------------------------------------------FUNCTIONS----------------------------------------------
+
 # def login_or_register():
 print("Welcome!")
 is_authorized=False
@@ -49,8 +64,8 @@ while not is_authorized:
             print("There is not any user under this login.")
             new_password=input("Type your password to register\n")
             if len(new_password.split()) == 1:
-                hashed_new_password=generate_password_hash(new_password,method="pbkdf2:sha256",salt_length=8)
-                insert_data(user,hashed_new_password)
+                # hashed_new_password=generate_password_hash(new_password,method="pbkdf2:sha256",salt_length=8)
+                insert_data(user,new_password)
                 print("You successfully registered!")
                 is_authorized=True
             else:
@@ -64,3 +79,5 @@ while not is_authorized:
 print("----------------")
 print("YOU AUTHORIZED!")
 print("you can do smth here")
+
+delete_user('kkk','kk')
